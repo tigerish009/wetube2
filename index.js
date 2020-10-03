@@ -16,7 +16,7 @@ const handleProfile = (req, res) => res.send("You are on my profile");
 
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(bodyParser.urlenconded({extended: ture });
+app.use(bodyParser.urlencoded({extended: true }));
 app.use(helmet());
 app.use(morgan("dev"));
 
