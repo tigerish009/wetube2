@@ -34,15 +34,15 @@ const routes = {
     },
     editProfile : EDIT_PROFILE,
     changePassword : CHANGE_PASSWORD,
-    videos : id => {
+    videos : VIDEOS,
+    upload : UPLOAD,
+    videoDetail : id => {
         if(id) {
             return `/videos/${id}`;
         } else {
             return VIDEO_DETAIL;
         }
     },
-    upload : UPLOAD,
-    videoDetail : VIDEO_DETAIL,
     editVideo : EDIT_VIDEO,
     deleteVideo : DELETE_VIDEO
 };
