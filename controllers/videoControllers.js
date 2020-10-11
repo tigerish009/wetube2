@@ -1,4 +1,8 @@
-export const home = (req, res) => res.render("home", {pageTitle : "Home"}); //pug 파일명인식
+import {videos} from "../db"
+
+export const home = (req, res) => {
+    res.render("home", {pageTitle : "Home", videos}); //pug 파일명인식
+}
 
 export const search = (req, res) => {
     //const searchingBy = req.query.term;
