@@ -1,54 +1,15 @@
-export const videos = [
-    {
-        id:11111,
-        title: 'Video awesome',
-        description: 'this is something I love',
-        views:24,
-        videoFile:"https://youtu.be/p71PrgY0bbM",
-        creator: {
-            id:99999,
-            name:"Cheon",
-            email:"cheon@gamil.com",
+import mongoose from "mongoose";
 
-        }
-    },
-    {
-        id:22222,
-        title: 'Video Cool',
-        description: 'this is something I love',
-        views:33,
-        videoFile:"https://youtu.be/p71PrgY0bbM",
-        creator: {
-            id:99999,
-            name:"Cheon",
-            email:"cheon@gamil.com",
+mongoose.connect("mongodb://localhost:27017/wetube2", 
+{ //몽고디비 설정 바로 할 수 있음
+    useNewUrlParser: true,
+    useFindAndModify: false
+});
 
-        }
-    },
-    {
-        id:33333,
-        title: 'Video Good',
-        description: 'this is something I love',
-        views:44,
-        videoFile:"https://youtu.be/p71PrgY0bbM",
-        creator: {
-            id:99999,
-            name:"Cheon",
-            email:"cheon@gamil.com",
+const db = mongoose.connection;
 
-        }
-    },
-    {
-        id:44444,
-        title: 'Video Super',
-        description: 'this is something I love',
-        views:55,
-        videoFile:"https://youtu.be/p71PrgY0bbM",
-        creator: {
-            id:99999,
-            name:"Cheon",
-            email:"cheon@gamil.com",
+const handleOpen = () => console.log("✅ Connected to DB");
+const handleError = (error) => console.log(`❌ Error on DB Connection:${error}`);
 
-        }
-    }
-]
+db.once("open", handleOpen);
+db.on("error", handleError);
