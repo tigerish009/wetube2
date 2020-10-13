@@ -1,9 +1,12 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
 
-mongoose.connect("mongodb://localhost:27017/wetube2", 
+mongoose.connect(process.env.MONGO_URL, 
 { //몽고디비 설정 바로 할 수 있음
     useNewUrlParser: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useUnifiedTopology: true
 });
 
 const db = mongoose.connection;
