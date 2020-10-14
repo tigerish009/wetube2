@@ -1,3 +1,4 @@
+import { text } from "body-parser";
 import mongoose from "mongoose";
 
 const VideoSchema = new mongoose.Schema({
@@ -17,7 +18,14 @@ const VideoSchema = new mongoose.Schema({
     createdAt : {
         type: Date,
         default: Date.now
-    }
+    },
+    // 방법2 비디오모델에 코멘트배열 추가하여 각자 ID매칭시키고 연결하기
+    comment : [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Comment"
+        }
+    ]
 });
 
 const model = mongoose.model("Video", VideoSchema);
