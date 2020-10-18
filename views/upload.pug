@@ -2,9 +2,11 @@ extends layouts/main
 
 block content
     .form-container
-        form(action=`/videos${routes.upload}`, method="post")
+        form(action=`/videos${routes.upload}`, method="post", enctype="multipart/form-data") 
+            //-파일을 업로드할떄 multer에 맞게 form을 인코딩하여 내보냄         
             label(for="file") Video File
-            input(type="file", id="file", name="file", requrired=true)
+            input(type="file", id="file", name="videoFile", requrired=true, accept="video/*") 
+            //- 비디오 파일만 받도록 설정
             input(type="text", placeholder="Title", name="title", requrired=true)
             textarea(name="description", placeholder="Descripiton", requrired=true)
             input(type="submit", value="Upload Video")
