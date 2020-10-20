@@ -43,7 +43,17 @@ export const postUpload = async (req, res) => {
     console.log(newVideo);
     res.redirect(routes.videoDetail(newVideo.id)); //324393 = 임시 ID
 };
-export const videoDetail = (req, res) => res.render("videoDetail", {pageTitle : "Video Detail"});
+export const videoDetail = async(req, res) => {
+    const {
+        params: { id }
+    } = req;
+    try {
+        const video = await Video.findById(id);
+        res.render("videoDetail", { pageTitle : "Video Detail", video});
+    }catch(error) {
+        res.redirect(routes.home); //잘못된 주소 입력되면 홈페이지로 이동시킴
+    }
+}
 
 export const editVideo = (req, res) => res.render("editVideo", {pageTitle : "Edit Video"});
 
