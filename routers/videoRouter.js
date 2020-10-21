@@ -24,6 +24,6 @@ videoRouter.get(routes.editVideo(), getEditVideo);
 videoRouter.post(routes.editVideo(), postEditVideo);
 
 //Delete Video
-videoRouter.get(routes.deleteVideo, deleteVideo);
+videoRouter.get(routes.deleteVideo(), deleteVideo); //String을 return하는 함수이기 때문에 () 붙여줘야함
 
 export default videoRouter;
