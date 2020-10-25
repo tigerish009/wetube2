@@ -7,7 +7,7 @@ import Video from "../models/Video";
 // 단, 에러발생시켜도 다음으로 넘어감. 정확한지는 판단안하고 명령이 끝난지만 봄
 export const home = async (req, res) => {
     try {
-        const videos = await Video.find({}); 
+        const videos = await Video.find({}).sort({_id: -1}); //홈화면 비디오 순서 역순으로 (업데이트순)
     // await는 명령이 끝날때까지 기다리란 의미 (await는 async와 세트)
     // Video.find({}) 하면 모든 비디오 가져옴
         res.render("home", {pageTitle : "Home", videos}); //pug 파일명인식
@@ -26,7 +26,7 @@ export const search = (req, res) => {
     const {
         query: { term : searchingBy }
     } = req;
-    res.render("search", {pageTitle : "Search", searchingBy, videos});
+    res.render("search", {pageTitle : "Search", searchingBy});
 }
 
 export const getUpload = (req, res) => res.render("upload", {pageTitle : "Upload"});
@@ -86,6 +86,8 @@ export const deleteVideo = async (req, res) => {
     } = req;
     try {
         await Video.findOneAndRemove({ _id : id});
-    } catch(error) {}
+    } catch(error) {
+        console.log(error);
+    }
     res.redirect(routes.home);
 }
