@@ -13,21 +13,29 @@ export const home = async (req, res) => {
         res.render("home", {pageTitle : "Home", videos}); //pug 파일명인식
     } catch(error) {
         console.log(error);
-        res.render("home", { pateTitle: "home", videos: []});
+        res.render("home", { pageTitle: "home", videos: []});
         // 에러발생하면 비디오에 빈 배열생성
     }
     // try & catch 는 에러판단없이 진행될때 알아채기 위해서 사용함
     // try는 에러없을때 시도할 내용
     // catch에서 에러발생시 콘솔표기해줌
-}
+};
 
-export const search = (req, res) => {
+export const search = async (req, res) => {
     //const searchingBy = req.query.term;
     const {
         query: { term : searchingBy }
     } = req;
-    res.render("search", {pageTitle : "Search", searchingBy});
-}
+    let videos = [];
+    try {
+        videos = await Video.find({ 
+            title : { $regex: searchingBy, $options: "i" }
+        });
+    } catch(error) {
+        console.log(error);
+    }
+    res.render("search", {pageTitle : "Search", searchingBy, videos});
+};
 
 export const getUpload = (req, res) => res.render("upload", {pageTitle : "Upload"});
 export const postUpload = async (req, res) => {
@@ -53,7 +61,7 @@ export const videoDetail = async(req, res) => {
     }catch(error) {
         res.redirect(routes.home); //잘못된 주소 입력되면 홈페이지로 이동시킴
     }
-}
+};
 
 export const getEditVideo = async (req, res) => {
     const {
@@ -65,7 +73,7 @@ export const getEditVideo = async (req, res) => {
     } catch(error) {
         res.redirect(routes.home);
     }
-}
+};
 
 export const postEditVideo = async (req, res) => {
     const {
@@ -90,4 +98,4 @@ export const deleteVideo = async (req, res) => {
         console.log(error);
     }
     res.redirect(routes.home);
-}
+};
