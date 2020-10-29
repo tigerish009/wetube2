@@ -2,7 +2,8 @@ module.exports = {
     "env": {
         "browser": true,
         "es2021": true,
-        "node": true
+        "node": true,
+        "indent": ["error", 4]
     },
     "extends": ["eslint:recommended", "plugin:prettier/recommended"],
     "parserOptions": {
