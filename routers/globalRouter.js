@@ -6,7 +6,9 @@ import routes from "../routes";
 const globalRouter = express.Router();
 
 globalRouter.get(routes.join, getJoin);
-globalRouter.post(routes.join, postJoin);
+globalRouter.post(routes.join, postJoin, postLogin);
+//미들웨어는 정보를 다음으로 넘겨준다
+//postJoin에서 username,password받아서 가입시키고, postLogin으로 넘겨준다
 
 globalRouter.get(routes.login, getLogin);
 globalRouter.post(routes.login, postLogin)
