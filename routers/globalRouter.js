@@ -1,7 +1,8 @@
 import express from "express";
-import { getJoin, postJoin, getLogin, postLogin, logout } from "../controllers/userControllers";
+import passport from "passport";
+import { getJoin, postJoin, getLogin, postLogin, logout, githubLoginCallback, githubLogin, postGithubLogIn } from "../controllers/userControllers";
 import { home, search } from "../controllers/videoControllers";
-import { onlyPublic } from "../middlewares";
+import { onlyPrivate, onlyPublic } from "../middlewares";
 import routes from "../routes";
 
 const globalRouter = express.Router();
@@ -16,6 +17,13 @@ globalRouter.post(routes.login, onlyPublic, postLogin);
 
 globalRouter.get(routes.home, home);
 globalRouter.get(routes.search, search);
-globalRouter.get(routes.logout, onlyPublic, logout);
+globalRouter.get(routes.logout, onlyPrivate,logout);
+
+globalRouter.get(routes.gitHub, githubLogin);
+globalRouter.get(
+    routes.githubCallback, 
+    passport.authenticate('github', { failureRedirect: "/login" }),
+    postGithubLogIn
+);
 
 export default globalRouter;
