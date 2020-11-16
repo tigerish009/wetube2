@@ -49,7 +49,6 @@ export const postUpload = async (req, res) => {
     title,
     description,
   });
-  console.log(newVideo);
   res.redirect(routes.videoDetail(newVideo.id)); //324393 = 임시 ID
 };
 export const videoDetail = async (req, res) => {
