@@ -43,7 +43,7 @@ export const githubLogin = passport.authenticate('github');
 // 깃헙에 간 사용자를 인증성공 후 다시 불러옴
 export const githubLoginCallback = async (_, __, profile, cb) => {
     const { 
-        _json: { id, avatar_url, name, email}
+        _json: { id, avatar_url: avatarUrl, name, email}
     } = profile;
     try {
         const user = await User.findOne({ email }); // email이 일치하는지 확인 후 유저로 판단
@@ -56,7 +56,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
             email,
             name,
             githubId: id,
-            avatarUrl: avatar_url
+            avatarUrl
         });
         return cb(null, newUser);
     } catch(error) {
@@ -72,6 +72,10 @@ export const logout = (req, res) => {
     //To Do : Process Log Out
     req.logout();
     res.redirect(routes.home);
+}
+
+export const getMe = (req, res) => {
+    res.render("userDetail", { pageTitle: "User Detail", user: req.user }); //req.user는 로그인된 유저, 따로 찾을필요없이 바로 지정
 }
 
 
