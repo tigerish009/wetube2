@@ -41,12 +41,31 @@ export const githubLogin = passport.authenticate('github');
 
 
 // 깃헙에 간 사용자를 인증성공 후 다시 불러옴
-export const githubLoginCallback = (accessToken, refreshToken, profile, cb) => {
-    console.log(accessToken, refreshToken, profile, cb);
-}
+export const githubLoginCallback = async (_, __, profile, cb) => {
+    const { 
+        _json: { id, avatar_url, name, email}
+    } = profile;
+    try {
+        const user = await User.findOne({ email }); // email이 일치하는지 확인 후 유저로 판단
+        if(user) {
+            user.githubId = id;
+            user.save();
+            return cb(null, user);
+        } 
+        const newUser = await User.create({
+            email,
+            name,
+            githubId: id,
+            avatarUrl: avatar_url
+        });
+        return cb(null, newUser);
+    } catch(error) {
+        return cb(error);
+    }
+};
 
 export const postGithubLogIn = (req, res) => {
-    res.send(routes.home);
+    res.redirect(routes.home);
 }
 
 export const logout = (req, res) => {
