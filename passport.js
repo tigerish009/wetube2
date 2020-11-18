@@ -1,6 +1,7 @@
 import passport from "passport";
 import GithubStrategy from "passport-github";
-import { githubLoginCallback } from "./controllers/userControllers";
+import FacebookStrategy from "passport-facebook";
+import { facebookLoginCallback, githubLoginCallback } from "./controllers/userControllers";
 import User from "./models/User";
 import routes from "./routes";
 
@@ -14,6 +15,15 @@ passport.use(
     },
     githubLoginCallback)
 );
+
+passport.use(
+    new FacebookStrategy({
+        clientID: process.env.FB_ID,
+        clientSecret: process.env.FB_SECRET,
+        callbackURL: `http://localhost:4000${routes.facebookLoginCallback}`
+    },
+    facebookLoginCallback)
+)
 
 passport.serializeUser(User.serializeUser()); //쿠키에 id를 담고
 passport.deserializeUser(User.deserializeUser()); //어떤 id인지 알아낸다
