@@ -17,7 +17,7 @@ globalRouter.post(routes.login, onlyPublic, postLogin);
 
 globalRouter.get(routes.home, home);
 globalRouter.get(routes.search, search);
-globalRouter.get(routes.logout, onlyPrivate,logout);
+globalRouter.get(routes.logout, logout);
 
 globalRouter.get(routes.gitHub, githubLogin);
 globalRouter.get(
