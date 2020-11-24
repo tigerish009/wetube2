@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "wetube2",
   "scripts": {
-    "dev:server": "nodemon --exec babel-node init.js --delay 2 --ignore 'scss' ",
+    "dev:server": "nodemon --exec babel-node init.js --delay 2 --ignore '.scss' --ignore 'static' ",
     "dev:assets": "WEBPACK_ENV=development webpack -w",
     "build:assets": "WEBPACK_ENV=production webpack",
     "tunnel": "lt --port 4000"
@@ -28,7 +28,6 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^6.2.0",
     "helmet": "^4.1.1",
-    "localtunnel": "^2.0.0",
     "mini-css-extract-plugin": "^1.2.1",
     "mongoose": "^5.10.9",
     "morgan": "^1.10.0",
