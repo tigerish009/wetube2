@@ -1,8 +1,9 @@
 import multer from "multer";
 import routes from "./routes";
 
-const multerVideo = multer({dest : "upload/videos/"});
+const multerVideo = multer({dest : "uploads/videos/"});
 // /uploads/videos/ 처럼 앞에 슬래쉬를 붙이면 root에 upload 만듦
+const multerAvatar = multer({dest : "uploads/avatars/"});
 
 export const localMiddleware = (req, res, next) => {
     res.locals.siteName = "WeTube";
@@ -29,3 +30,4 @@ export const onlyPrivate = (req, res, next) => {
 
 export const uploadVideo = multerVideo.single("videoFile");
 // multer middleware
+export const uploadAvatar = multerAvatar.single("avatar");
