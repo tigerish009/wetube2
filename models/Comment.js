@@ -16,6 +16,10 @@ const CommentSchema = new mongoose.Schema({
     //     ref: "Video" 
     //     //Video.js의 mongoose.model("Video", VideoSchema); 임.
     // }
+    creater: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }
 })
 
 const model = mongoose.model("Comment", CommentSchema);
