@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import passport from "passport";
 import mongoose from "mongoose";
 import session from "express-session";
+import path from "path";
 import MongoStore from "connect-mongo";
 import { localMiddleware } from "./middlewares";
 import routes from "./routes";
@@ -22,9 +23,8 @@ const CookieStore = MongoStore(session);
 
 app.use(helmet({contentSecurityPolicy:false,}));
 app.set('view engine', 'pug');
-app.use("/uploads", express.static("uploads"));
-// 업로드로 파일이 들어오면 컨트롤러나 뷰를 통하지 않고 바로 디렉토리로 보내줌
-app.use("/static", express.static("static"));
+app.set("views", path.join(__dirname, "views"));
+app.use("/static", express.static(path.join(__dirname, "static")));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true }));
